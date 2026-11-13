@@ -18,6 +18,10 @@ app.whenReady().then(async()=>{
  if(ships.length<=2097152)throw Error('The large-atlas regression fixture must exceed 2 MiB');
  const window=new BrowserWindow({width:960,height:640,show:false,focusable:false,skipTaskbar:true,webPreferences:{sandbox:true,contextIsolation:true,nodeIntegration:false,backgroundThrottling:false}});
  await window.loadURL('data:text/html,'+encodeURIComponent('<meta http-equiv="Content-Security-Policy" content="default-src \'none\'; img-src data:; style-src \'unsafe-inline\'; script-src \'none\'"><body></body>'));
+ // Hosted Windows runners may reduce motion by default. Emulate this test page only.
+ window.webContents.debugger.attach('1.3');
+ await window.webContents.debugger.sendCommand('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'no-preference'}]});
+ if(await window.webContents.executeJavaScript("matchMedia('(prefers-reduced-motion: reduce)').matches"))throw Error('Animation media emulation did not apply');
  const results=[];
  for(const refinedShips of [false,true]){
   const props={css,ships,refinedShips,chapterArt:{},ticket:'ship-test-'+refinedShips};
@@ -35,5 +39,9 @@ app.whenReady().then(async()=>{
  await window.webContents.executeJavaScript(`(()=>{${js};return MoonlightVoyage.mount(${JSON.stringify({css,ships:'',refinedShips:false,chapterArt:{},ticket:'public-boats'})});})()`);
  const fallback=await window.webContents.executeJavaScript("document.getElementById('moonlight-native-voyage').shadowRoot.querySelectorAll('.ship-fallback').length");
  if(fallback!==2)throw Error('Public generic boats are missing');
- console.log(JSON.stringify({passed:true,fixtureBytes:ships.length,results,fallback}));app.exit(0);
+ await window.webContents.executeJavaScript("document.getElementById('moonlight-native-voyage').shadowRoot.querySelector('.boot-skip').click()");
+ await window.webContents.debugger.sendCommand('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});
+ const reduced=await window.webContents.executeJavaScript(`(()=>{${js};const preference=matchMedia('(prefers-reduced-motion: reduce)').matches;const mounted=MoonlightVoyage.mount(${JSON.stringify({css,ships:'',refinedShips:false,chapterArt:{},ticket:'reduced-motion'})});return preference&&!mounted&&!document.getElementById('moonlight-native-voyage');})()`);
+ if(!reduced)throw Error('Reduced motion must skip the native startup');
+ console.log(JSON.stringify({passed:true,fixtureBytes:ships.length,results,fallback,reduced}));app.exit(0);
 }).catch(error=>{console.error(error.message);app.exit(1);});
