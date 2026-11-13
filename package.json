@@ -1,0 +1,31 @@
+{
+  "name": "moonlight-codex",
+  "version": "0.2.29",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && node scripts/build-native-voyage.mjs && node scripts/prepare-sites-build.mjs",
+    "preview": "vite preview",
+    "test:sites": "node --test tests/sites-worker.test.mjs",
+    "test:startup": "node scripts/test-startup-ship.mjs",
+    "desktop": "electron .",
+    "package:win": "node scripts/package-win.mjs",
+    "package:source": "node scripts/export-source.mjs",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "5.0.4",
+    "fflate": "0.8.3",
+    "lucide-react": "1.70.0",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "vite": "6.4.2"
+  },
+  "description": "Windows Codex startup animation and Moonlight theme",
+  "main": "desktop/main.cjs",
+  "devDependencies": {
+    "@electron/packager": "20.3.0",
+    "electron": "45.2.3"
+  }
+}

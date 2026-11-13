@@ -1,0 +1,49 @@
+name: Windows release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm test
+      - run: npm run build
+      - run: npm run test:startup
+      - run: npm run package:win
+      - run: npm run package:source
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MoonlightCodex-Windows-x64
+          path: release/MoonlightCodex-*.zip*
+          if-no-files-found: error
+
+  publish:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: package
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: MoonlightCodex-Windows-x64
+          path: release
+      - name: Create release from the existing tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MOONLIGHT_TAG: ${{ github.ref_name }}
+        run: gh release create "$MOONLIGHT_TAG" release/* --verify-tag --generate-notes

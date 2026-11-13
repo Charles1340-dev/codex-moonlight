@@ -1,0 +1,98 @@
+{
+  "base": [
+    {
+      "id": "pistol",
+      "label": "橡胶手枪",
+      "duration": 1440
+    },
+    {
+      "id": "axe",
+      "label": "橡胶战斧",
+      "duration": 1570
+    },
+    {
+      "id": "gatling",
+      "label": "橡胶机关枪",
+      "duration": 1750
+    },
+    {
+      "id": "bazooka",
+      "label": "橡胶火箭炮",
+      "duration": 1720
+    },
+    {
+      "id": "whip",
+      "label": "橡胶鞭",
+      "duration": 1800
+    },
+    {
+      "id": "cannon",
+      "label": "橡胶攻城炮",
+      "duration": 1900
+    }
+  ],
+  "snakeman": [
+    {
+      "id": "culverin",
+      "label": "Jet 大蛇炮",
+      "duration": 1480
+    },
+    {
+      "id": "cobra",
+      "label": "王蛇",
+      "duration": 1780
+    },
+    {
+      "id": "mamba",
+      "label": "黑曼巴",
+      "duration": 1750
+    },
+    {
+      "id": "hydra",
+      "label": "九头蛇",
+      "duration": 1880
+    },
+    {
+      "id": "jetpistol",
+      "label": "Jet 手枪",
+      "duration": 1600
+    },
+    {
+      "id": "jetgatling",
+      "label": "Jet 机关枪",
+      "duration": 2000
+    }
+  ],
+  "nika": [
+    {
+      "id": "lightning",
+      "label": "橡胶雷",
+      "duration": 1780
+    },
+    {
+      "id": "giant",
+      "label": "橡胶巨人",
+      "duration": 2150
+    },
+    {
+      "id": "star",
+      "label": "白星枪",
+      "duration": 1780
+    },
+    {
+      "id": "jumprope",
+      "label": "凯多跳绳",
+      "duration": 2180
+    },
+    {
+      "id": "balloon",
+      "label": "橡胶气球",
+      "duration": 2300
+    },
+    {
+      "id": "mole",
+      "label": "橡胶鼹鼠枪",
+      "duration": 2100
+    }
+  ]
+}
