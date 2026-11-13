@@ -48,8 +48,8 @@ MoonlightCodex.exe --launch        普通打开或复用 Codex
 
 ```powershell
 npm ci
-npm test
 npm run build
+npm test
 npm run test:startup
 npm run desktop
 npm run package:win

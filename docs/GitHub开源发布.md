@@ -25,7 +25,7 @@ git symbolic-ref HEAD refs/heads/main
 git add .github .openai desktop docs scripts src tests themes worker
 git add .gitignore .npmrc AGENTS.md CONTRIBUTING.md LICENSE README.md index.html package.json package-lock.json vite.config.mjs
 git diff --cached --stat
-git commit -m "Release Moonlight Codex 0.2.29"
+git commit -m "Release Moonlight Codex 0.2.30"
 git remote add origin https://github.com/Charles1340-dev/codex-moonlight.git
 git push -u origin main
 ```
@@ -37,8 +37,8 @@ Git 登录身份与提交作者是不同设置；推送时应使用 Charles1340-
 仓库含 Windows release 工作流。手动运行 Actions → Windows release 可先取得构建产物；推送与 package.json 版本一致的标签，会自动测试、构建、打包并创建 Release：
 
 ```powershell
-git tag v0.2.29
-git push origin v0.2.29
+git tag v0.2.30
+git push origin v0.2.30
 ```
 
 普通分支与 PR 由 CI 检查测试、构建和启动船只绘制。Release 上传便携 ZIP、源码 ZIP 和校验文件，程序 ZIP 不含本地角色素材。

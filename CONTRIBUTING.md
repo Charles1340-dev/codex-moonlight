@@ -4,8 +4,8 @@
 
 ```powershell
 npm ci
-npm test
 npm run build
+npm test
 npm run test:startup
 npm run test:sites
 ```

@@ -19,8 +19,8 @@ jobs:
           node-version: "24"
           cache: npm
       - run: npm ci --no-audit --no-fund
-      - run: npm test
       - run: npm run build
+      - run: npm test
       - run: npm run test:startup
       - run: npm run package:win
       - run: npm run package:source
